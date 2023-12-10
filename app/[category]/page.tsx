@@ -1,38 +1,35 @@
- import { client } from "../lib/sanity";
- import type { simplifiedProduct } from "../interface";
- import Link from "next/link"
-import { ArrowRight } from "lucide-react";
-import Image from "next/image"
- 
- 
- async function getData() {
-    const query = `*[_type == 'product'][1...4] | order(_createdAt desc) {
+import { simplifiedProduct } from "../interface";
+import { client } from "../lib/sanity";
+import Image from "next/image";
+import Link from "next/link";
+
+async function getData(category: string) {
+    const query = `*[_type == "product" && category->name == "${category}"] {
         _id,
+         "imageUrl": images[0].asset->url,
           price,
           name,
-            "slug": slug.current,
-            "categoryName": category->name,
-            "imageUrl": images[0].asset->url
-      }`;
+          "slug": slug.current,
+          "categoryName": category->name
+    }`;
 
-      const data = await client.fetch(query);
-      return data;
-    }
+    const data = await client.fetch(query);
 
-export default async function Newest() {
-    const data: simplifiedProduct[] = await getData();
+    return data;
+}
+
+export default async function CategoryPage({
+    params,
+}: {
+    params: { category: string };
+}) {
+    const data: simplifiedProduct[] = await getData(params.category);
 
     return (
-       <div className="bg-white"> 
-        <div className="mx-auto max-w-2xl py-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div className="bg-white"> 
+        <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
          <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold tracking-tight text-gray-900">Our latest product</h2>
-
-             <Link href="/all" className="flex items-center gap-x-1 text-primary">See All{" "}
-             <span>
-                <ArrowRight />
-                </span>
-             </Link>
+              <h2 className="text-2xl font-bold tracking-tight text-gray-900">Our Products for {params.category}</h2>
           </div>
 
           <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
