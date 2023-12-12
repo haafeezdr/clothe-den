@@ -14,7 +14,7 @@ async function getData(category: string) {
     }`;
 
     const data = await client.fetch(query);
-
+    console.log(data);
     return data;
 }
 

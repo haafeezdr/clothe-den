@@ -6,7 +6,7 @@ import Image from "next/image"
  
  
  async function getData() {
-    const query = `*[_type == 'product'][1...4] | order(_createdAt desc) {
+    const query = `*[_type == 'product'] | order(_createdAt desc) {
         _id,
           price,
           name,
@@ -16,6 +16,7 @@ import Image from "next/image"
       }`;
 
       const data = await client.fetch(query);
+      console.log(data);
       return data;
     }
 
