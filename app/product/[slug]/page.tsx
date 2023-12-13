@@ -11,7 +11,7 @@ async function getData(slug: string) {
           _id,
             images,
             price,
-            name,
+            name, 
             description,
             "slug": slug.current,
             "categoryName": category->name,
@@ -66,7 +66,7 @@ async function getData(slug: string) {
 
                     <div className="flex gap-2.5">
                         <AddToBag
-                            currency="USD"
+                            currency="NGN"
                             description={data.description}
                             image={data.images[0]}
                             name={data.name}
@@ -75,7 +75,7 @@ async function getData(slug: string) {
                             price_id={data.price_id}
                         />
                         <CheckOutNow
-                            currency="USD"
+                            currency="NGN"
                             description={data.description}
                             image={data.images[0]}
                             name={data.name}
