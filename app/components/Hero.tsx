@@ -3,7 +3,7 @@ import { client, urlFor } from "../lib/sanity";
 import Link from "next/link";
 
 async function getData() {
-    const query = "*[_type == 'heroImages'][1.0]";
+    const query = "*[_type == 'heroImages'][0]";
 
     const data = await client.fetch(query);
 
