@@ -16,7 +16,7 @@ import Image from "next/image"
       }`;
 
       const data = await client.fetch(query);
-      console.log(data);
+
       return data;
     }
 
